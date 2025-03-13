@@ -23,24 +23,25 @@ app.set("template engine", "ejs");
 
 //run server
 (async () => {
-    try {
-        await sequelize.authenticate();
-        await sequelize.sync();
-        app.listen(3000);
-        console.log("app is listening on http://localhost:3000/");
-    } catch (err) {
-        console.log(err);
-    }
+  try {
+    await sequelize.authenticate();
+    await sequelize.sync();
+    const port = process.env.PORT || 3000;
+    app.listen(port);
+    console.log("app is listening on http://localhost:3000/");
+  } catch (err) {
+    console.log(err);
+  }
 })();
 
 //the middleware
 app.use(
-    session({
-        secret: process.env.SESSIONSECRET,
-        resave: false,
-        saveUninitialized: false,
-        store: store,
-    })
+  session({
+    secret: process.env.SESSIONSECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: store,
+  })
 );
 app.use(express.static(path.join(__dirname, "public"))); //serve public
 app.use(express.urlencoded({ extended: false })); //parser for urlencoded data
