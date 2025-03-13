@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize"); //sequelize is used for session-store
 const mysql = require("mysql2");
+const fs = require("fs");
 
 const isProduction = process.env.NODE_ENV === "production";
 
