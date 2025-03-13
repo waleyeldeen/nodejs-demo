@@ -22,17 +22,13 @@ app.set("views", "views");
 app.set("template engine", "ejs");
 
 //run server
-(async () => {
-  try {
-    await sequelize.authenticate();
-    await sequelize.sync();
-    const port = process.env.PORT || 3000;
-    app.listen(port);
-    console.log("app is listening on http://localhost:3000/");
-  } catch (err) {
-    console.log(err);
-  }
-})();
+
+sequelize.authenticate();
+sequelize.sync();
+const port = process.env.PORT || 4000;
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
 
 //the middleware
 app.use(
