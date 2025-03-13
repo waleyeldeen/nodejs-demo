@@ -14,7 +14,7 @@ const sequelize = new Sequelize(
     ...(isProduction && {
       dialectOptions: {
         ssl: {
-          ca: Buffer.from(process.env.DBCERT, "base64").toString("utf-8"),
+          ca: fs.readFileSync("/etc/secrets/ca.pem"),
         },
       },
     }),
@@ -31,7 +31,7 @@ const pool = mysql.createPool({
   queueLimit: 0,
   ...(isProduction && {
     ssl: {
-      ca: Buffer.from(process.env.DBCERT, "base64").toString("utf-8"),
+      ca: fs.readFileSync("/etc/secrets/ca.pem"),
     },
   }),
 });
